@@ -1,0 +1,53 @@
+.tabcontent {
+    display: none;
+    padding: 20px 0;
+}
+.nav-tab-active {
+    font-weight: bold;
+}
+
+.form-table td {
+    vertical-align: top;
+    padding-top: 20px;
+}
+
+.form-table td label {
+    vertical-align: top;
+}
+
+.additional-options {
+    margin: 7px 0 7px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3px;
+}
+
+.flex-row {
+    display: flex;
+    column-gap: 20px;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.flex-row label {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.width-1-2 {
+    max-width: 500px;
+    width: 50%;
+}
+
+.inactive-plugin {
+    color: #d40000;
+}
