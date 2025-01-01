@@ -20,11 +20,20 @@ add_action('admin_init', function () {
     
     /* Settings Fields */
     
-    // Sanitize Filenames
+    // Discourage search engines from indexing notify in admin bar
     add_settings_field(
         'noindex_admin_bar_notify', // field ID
         'Noindex Admin Bar Notify', // field label
         'noindex_admin_bar_notify_callback', // callback to render field
+        'dev_options_seo_marketing', // page where field will be displayed
+        'seo_marketing_settings' // field section ID
+    );
+    
+    // Disable Scheam
+    add_settings_field(
+        'disable_schema', // field ID
+        'Disable Theme Schema', // field label
+        'disable_schema_callback', // callback to render field
         'dev_options_seo_marketing', // page where field will be displayed
         'seo_marketing_settings' // field section ID
     );
