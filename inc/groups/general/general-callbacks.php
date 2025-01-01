@@ -6,8 +6,9 @@ if (!defined('ABSPATH')) exit;
 function sanitize_filenames_callback() {
     $options = devops_general_options(); // get options
     $value = $options['sanitize_filenames'] ?? '';
+    
     echo '<label>';
-    echo '<input type="checkbox" id="sanitize-filenames" name="dev_options_general[sanitize_filenames]" value="1" ' . checked(1, $value, false) . '> Enable';
+        echo '<input type="checkbox" id="sanitize-filenames" name="dev_options_general[sanitize_filenames]" value="1" ' . checked(1, $value, false) . '> Enable';
     echo '</label>';
 }
 
@@ -15,30 +16,30 @@ function sanitize_filenames_callback() {
 function svg_upload_callback() {
     $options = devops_general_options(); // Get options
     $svg_upload = $options['svg_upload'] ?? '';
-    $svg_upload_capability = !empty($options['svg_upload_capability']) ? (array)$options['svg_upload_capability'] : ['manage_options']; // Default to manage_options // Default to manage_options
+    $svg_upload_capability = !empty($options['svg_upload_capability']) ? (array)$options['svg_upload_capability'] : ['manage_options']; // Default to manage_options
 
     // Enable SVG upload
     echo '<label>';
-    echo '<input type="checkbox" id="svg_upload" name="dev_options_general[svg_upload]" value="1" ' . checked(1, $svg_upload, false) . ' data-toggle="svg-upload-capability"> Enable';
+        echo '<input type="checkbox" id="svg_upload" name="dev_options_general[svg_upload]" value="1" ' . checked(1, $svg_upload, false) . ' data-toggle="svg-upload-capability"> Enable';
     echo '</label>';
 
     // Additional capability selection
-    echo '<div id="svg-upload-capability" class="additional-options">';
+    echo '<fieldset id="svg-upload-capability" class="additional-options">';
 
-    // Option: Administrators (manage_options capability)
-    echo '<label>';
-    echo '<input type="radio" id="svg-upload-capability-administrator" name="dev_options_general[svg_upload_capability][]" value="manage_options" ' . checked(in_array('manage_options', $svg_upload_capability), true, false) . '> Administrator';
-    echo '</label>';
+        // Option: Administrators (manage_options capability)
+        echo '<label>';
+            echo '<input type="radio" id="svg-upload-capability-administrator" name="dev_options_general[svg_upload_capability][]" value="manage_options" ' . checked(in_array('manage_options', $svg_upload_capability), true, false) . '> Administrator';
+        echo '</label>';
 
-    // Option: Editors (edit_others_posts capability)
-    echo '<label>';
-    echo '<input type="radio" id="svg-upload-capability-editor" name="dev_options_general[svg_upload_capability][]" value="edit_others_posts" ' . checked(in_array('edit_others_posts', $svg_upload_capability), true, false) . '> Editor + higher roles';
-    echo '</label>';
+        // Option: Editors (edit_others_posts capability)
+        echo '<label>';
+            echo '<input type="radio" id="svg-upload-capability-editor" name="dev_options_general[svg_upload_capability][]" value="edit_others_posts" ' . checked(in_array('edit_others_posts', $svg_upload_capability), true, false) . '> Editor + higher roles';
+        echo '</label>';
 
-    // Option: Authors (publish_posts capability)
-    echo '<label>';
-    echo '<input type="radio" id="svg-upload-capability-author" name="dev_options_general[svg_upload_capability][]" value="publish_posts" ' . checked(in_array('publish_posts', $svg_upload_capability), true, false) . '> Author + higher roles';
-    echo '</label>';
+        // Option: Authors (publish_posts capability)
+        echo '<label>';
+            echo '<input type="radio" id="svg-upload-capability-author" name="dev_options_general[svg_upload_capability][]" value="publish_posts" ' . checked(in_array('publish_posts', $svg_upload_capability), true, false) . '> Author + higher roles';
+        echo '</label>';
 
     // Check if WooCommerce is active
     $is_woocommerce_active = class_exists('WooCommerce');
@@ -50,7 +51,7 @@ function svg_upload_callback() {
         echo '</label>';
     }
 
-    echo '</div>';
+    echo '</fieldset>';
 }
 
 

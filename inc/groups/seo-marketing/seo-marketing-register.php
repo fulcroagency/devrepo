@@ -29,6 +29,15 @@ add_action('admin_init', function () {
         'seo_marketing_settings' // field section ID
     );
     
+    // Redirect 404 to Home
+    add_settings_field(
+        'redirect_404', // field ID
+        'Redirect 404 to Home', // field label
+        'redirect_404_callback', // callback to render field
+        'dev_options_seo_marketing', // page where field will be displayed
+        'seo_marketing_settings' // field section ID
+    );
+    
     // Disable Scheam
     add_settings_field(
         'disable_schema', // field ID

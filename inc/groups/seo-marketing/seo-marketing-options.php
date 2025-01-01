@@ -14,6 +14,11 @@ add_action('init', function () {
         require_once DEV_OPTIONS_FUNC . 'seo-marketing/noindex-admin-bar-notify.php';
     }
     
+    // Redirect 404 to Home
+    if (($options['redirect_404']['enable'] ?? 0) == 1) {
+        require_once DEV_OPTIONS_FUNC . 'seo-marketing/404-to-home.php';
+    }
+    
     // Disable schema
     if (($options['disable_schema'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'seo-marketing/disable-schema.php';

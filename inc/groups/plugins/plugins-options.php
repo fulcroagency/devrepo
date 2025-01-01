@@ -15,7 +15,7 @@ add_action('init', function () {
     }
     
     // CF7 Syntax Highlighting
-    if (($options['cf7_syntax_highlighting']['enabled'] ?? '') == '1' && is_cf7_active()) {
+    if (($options['cf7_syntax_highlighting']['enable'] ?? '') == '1' && is_cf7_active()) {
         require_once DEV_OPTIONS_FUNC . 'plugins/cf7-syntax-highlighting.php';
     }
 
