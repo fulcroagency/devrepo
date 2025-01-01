@@ -74,4 +74,13 @@ add_action('admin_init', function () {
         'dev_options_security_performance', // page where field will be displayed
         'security_performance_settings' // field section ID
     );
+    
+     // Disable Comments
+    add_settings_field(
+        'disable_comments', // field ID
+        'Disable Comments', // field label
+        'disable_comments_callback', // callback to render field
+        'dev_options_security_performance', // page where field will be displayed
+        'security_performance_settings' // field section ID
+    );
 });

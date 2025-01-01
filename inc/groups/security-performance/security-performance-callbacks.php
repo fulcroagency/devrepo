@@ -115,12 +115,10 @@ function users_security_callback() {
     echo '</label>';
 
     echo '</div>';
-    // Komunikat informujący, gdy motyw GeneratePress nie jest aktywny
-    if (!is_generatepress()) {
-        echo '<span class="inactive-theme" style="margin-left: 20px; color: #888;">Disabled options are available only when the GeneratePress theme or its child theme is active.</span>';
-    }
+    // Show info that some options are available only when the GeneratePress theme is inactive
+    is_generatepress_inactive();
+    
 }
-
 
 
 // Disable Emoji's
@@ -129,5 +127,14 @@ function disable_emojis_callback() {
     $value = $options['disable_emojis'] ?? ''; // default to empty if not set
     echo '<label>';
     echo '<input type="checkbox" id="disable-emojis" name="dev_options_security_performance[disable_emojis]" value="1" ' . checked(1, $value, false) . '> Enable';
+    echo '</label>';
+}
+
+// Disable Comments
+function disable_comments_callback() {
+    $options = devops_security_performance_options(); // get options 
+    $value = $options['disable_comments'] ?? ''; // default to empty if not set
+    echo '<label>';
+    echo '<input type="checkbox" id="disable-comments" name="dev_options_security_performance[disable_comments]" value="1" ' . checked(1, $value, false) . '> Enable';
     echo '</label>';
 }

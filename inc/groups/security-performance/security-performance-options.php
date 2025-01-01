@@ -33,4 +33,9 @@ add_action('init', function () {
     if (($options['disable_emojis'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'security-performance/disable-emojis.php';
     }
+    
+    // Disable Comments
+    if (($options['disable_comments'] ?? 0) == 1) {
+        require_once DEV_OPTIONS_FUNC . 'security-performance/disable-comments.php';
+    }
 });

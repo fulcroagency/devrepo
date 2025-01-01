@@ -3,7 +3,7 @@
 if (!defined('ABSPATH')) exit;
 
 // Require the Plugin Update Checker library
-require 'vendors/plugin-update-checker/plugin-update-checker.php';
+require DEV_OPTIONS_DIR . 'vendors/plugin-update-checker/plugin-update-checker.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
