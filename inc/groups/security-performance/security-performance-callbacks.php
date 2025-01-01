@@ -111,7 +111,9 @@ function users_security_callback() {
     echo '</label>';
     
     echo '<label>';
-    echo '<input type="checkbox" id="users-security-remove-links" name="dev_options_security_performance[users_security][remove_links]" value="1" ' . checked(1, $remove_links, false) . (is_generatepress() ? '' : ' disabled') . '> Remove Links to Author Pages';
+     echo '<input type="checkbox" id="users-security-remove-links" name="dev_options_security_performance[users_security][remove_links]" value="1" ' .
+         (is_generatepress_active() ? checked(1, $remove_links, false) : 'disabled') .
+         '> Remove Links to Author Pages';
     echo '</label>';
 
     echo '</div>';

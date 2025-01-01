@@ -13,11 +13,17 @@ function noindex_admin_bar_notify_callback() {
 
 // Disable Scheam
 function disable_schema_callback() {
+    
+    // Check if GeneratePress theme is active
+    if (is_generatepress_inactive()) {
+        return; // show notice and stop function
+    }
+    
     $options = devops_seo_marketing_options(); // get options
     $value = $options['disable_schema'] ?? '';
     echo '<label>';
     echo '<input type="checkbox" id="disable-schema" name="dev_options_seo_marketing[disable_schema]" value="1" ' . checked(1, $value, false) . (is_generatepress() ? '' : ' disabled') . '> Enable';
     echo '</label>';
     // Show info that some options are available only when the GeneratePress theme is inactive
-    is_generatepress_inactive();
+    /*is_generatepress_inactive();*/
 }
