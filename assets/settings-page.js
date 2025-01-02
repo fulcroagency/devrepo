@@ -66,23 +66,45 @@ document.addEventListener("DOMContentLoaded", function () {
     
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
-    // find all checkboxes with `data-toggle`
+    // Find all input elements with `data-toggle`
     const toggles = document.querySelectorAll("[data-toggle]");
 
-    toggles.forEach(function (toggle) {
-        const targetId = toggle.getAttribute("data-toggle"); // get target ID
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement) {
-            // set visibility according to option status
-            targetElement.style.display = toggle.checked ? "flex" : "none";
-
-            // liten for changes
+    if (toggles.length > 0) {
+        // Add event listeners to all elements with `data-toggle`
+        toggles.forEach(function (toggle) {
             toggle.addEventListener("change", function () {
-                targetElement.style.display = toggle.checked ? "flex" : "none";
+                updateAllToggleVisibility();
             });
-        }
-    });
+        });
+
+        // Set initial visibility on page load
+        updateAllToggleVisibility();
+    }
+
+    /**
+     * Updates the visibility of all elements based on `data-toggle`.
+     */
+    function updateAllToggleVisibility() {
+        toggles.forEach(function (toggle) {
+            const targetId = toggle.getAttribute("data-toggle");
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                if (toggle.type === "radio") {
+                    // Show only the target for the selected radio in the group
+                    const radioGroup = document.querySelectorAll(`[name="${toggle.name}"]`);
+                    radioGroup.forEach(function (radio) {
+                        const target = document.getElementById(radio.getAttribute("data-toggle"));
+                        if (target) {
+                            target.style.display = radio.checked ? "flex" : "none";
+                        }
+                    });
+                } else {
+                    // For checkboxes and other types, toggle display
+                    targetElement.style.display = toggle.checked ? "flex" : "none";
+                }
+            }
+        });
+    }
 });
