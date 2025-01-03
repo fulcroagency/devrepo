@@ -110,7 +110,6 @@ function users_security_callback() {
     $restrict_rest_api = $options['users_security']['restrict_rest_api'] ?? '';
     $disable_pages = $options['users_security']['disable_author_pages'] ?? '';
     $disable_links = $options['users_security']['remove_author_links'] ?? '';
-    $remove_sitemap = $options['users_security']['remove_sitemap'] ?? '';
     $remove_emails = $options['users_security']['remove_author_emails'] ?? '';
     $remove_names = $options['users_security']['remove_author_names'] ?? '';
 
@@ -151,12 +150,7 @@ function users_security_callback() {
 
             // Remove Author Links
             echo '<label>';
-                echo '<input type="checkbox" id="users-security-disable-links" name="dev_options_security_performance[users_security][remove_author_links]" value="1" ' . checked(1, $disable_links, false) . '> Remove Links to Author Pages';
-            echo '</label>';
-
-            // Remove Authors from Sitemap
-            echo '<label>';
-                echo '<input type="checkbox" id="users-security-remove-sitemap" name="dev_options_security_performance[users_security][remove_sitemap]" value="1" ' . checked(1, $remove_sitemap, false) . '> Remove Links to Author Pages from Sitemap';
+                echo '<input type="checkbox" id="users-security-disable-links" name="dev_options_security_performance[users_security][remove_author_links]" value="1" ' . checked(1, $disable_links, false) . '> Remove Links to Author Pages (frontend + sitemap)';
             echo '</label>';
 
             // Remove Author Emails

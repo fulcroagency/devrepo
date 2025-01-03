@@ -15,7 +15,7 @@ add_action('init', function () {
     }
 
     // Remove WP Head Links
-    if (($options['remove_wp_head_links']['enable'] ?? 0) == 1) {
+    if (($options['remove_wp_head_links']['enabled'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'security-performance/remove-wp-head-links.php';
     }
     
@@ -25,7 +25,7 @@ add_action('init', function () {
     }
     
     // Users security
-    if (($options['users_security']['enable'] ?? 0) == 1) {
+    if (($options['users_security']['enabled'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'security-performance/users-security.php';
     }
 
