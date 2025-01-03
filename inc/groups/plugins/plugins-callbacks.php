@@ -28,14 +28,14 @@ function cf7_syntax_highlighting_callback() {
 
     // get options
     $options = devops_plugins_options();
-    $cf7_syntax_highlighting = $options['cf7_syntax_highlighting']['enable'] ?? '';
+    $enabled = $options['cf7_syntax_highlighting']['enabled'] ?? '';
     $form_body = $options['cf7_syntax_highlighting']['form_body'] ?? '';
     $mail_body = $options['cf7_syntax_highlighting']['mail_body'] ?? '';
 
 
     // Enable function
     echo '<label>';
-        echo '<input type="checkbox" id="cf7-syntax-highlighting" name="dev_options_plugins[cf7_syntax_highlighting][enable]" value="1" ' . checked(1, $cf7_syntax_highlighting, false) . ' data-toggle="cf7-syntax-highlighting-option"> Enable';
+        echo '<input type="checkbox" id="cf7-syntax-highlighting" name="dev_options_plugins[cf7_syntax_highlighting][enable]" value="1" ' . checked(1, $enabled, false) . ' data-toggle="cf7-syntax-highlighting-option"> Enable';
     echo '</label>';
 
     // Additional options

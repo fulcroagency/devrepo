@@ -16,13 +16,13 @@ function noindex_admin_bar_notify_callback() {
 function redirect_404_callback() {
     // get options
     $options = devops_seo_marketing_options();
-    $enable = $options['redirect_404']['enable'] ?? '';
+    $enabled = $options['redirect_404']['enabled'] ?? '';
     $redirect_type = $options['redirect_404']['type'] ?? '301'; // Default to 301 if not set
 
-    // Enable function
+    // Enable
     echo '<label>';
-        echo '<input type="checkbox" id="redirect-404-enable" name="dev_options_seo_marketing[redirect_404][enable]" value="1" ' . 
-         checked(1, $enable, false) . ' data-toggle="redirect-404-options"> Enable';
+        echo '<input type="checkbox" id="redirect-404" name="dev_options_seo_marketing[redirect_404][enabled]" value="1" ' . 
+         checked(1, $enabled, false) . ' data-toggle="redirect-404-options"> Enable';
     echo '</label>';
 
     // Additional options
