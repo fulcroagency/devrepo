@@ -27,13 +27,17 @@ function devops_users_security() {
         // end remove author links
         
         // start remove author emails
-        add_filter('get_the_author_meta', 'devops_wp_remove_author_email', 10, 2 ); // default WP
+        add_filter('get_the_author_user_email', 'devops_wp_remove_author_email', 10, 2 ); // default WP - user_email
         add_filter('generateblocks_dynamic_content_output', 'devops_remove_generateblocks_email_content_output', 10, 3 ); // GenerateBlocks Content Type output
         add_filter('generateblocks_dynamic_url_output', 'devops_remove_generateblocks_email_url_output', 10, 3 ); // GenerateBlocks Link Type output
         // end remove author emails end
         
         // start remove author names
-        add_filter('the_author', '__return_empty_string'); // default WP
+        add_filter('the_author', '__return_empty_string'); // Default WP - author
+        add_filter('get_the_author_user_login', 'devops_wp_remove_user_login', 10, 2); // Default WP - user_login
+        add_filter('get_the_author_display_name', 'devops_wp_remove_display_name', 10, 2); // Default WP - display_name
+        add_filter('get_the_author_nickname', 'devops_wp_remove_nickname', 10, 2); // Default WP - nickname
+        add_filter('get_the_author_user_nicename', 'devops_wp_remove_user_nicename', 10, 2); // Default WP - user_nicename
         add_action('init', 'devops_unregister_core_block_post_author', 25); // Gutenberg core block
         add_filter('generate_post_author_output', '__return_empty_string'); // GeneratePress
         add_filter('generateblocks_dynamic_content_output', 'devops_remove_generateblocks_name_content_output', 10, 3 ); // GenerateBlocks Content Type output
@@ -71,14 +75,18 @@ function devops_users_security() {
         
         // remove author emails
         if (($options['users_security']['remove_author_emails'] ?? 0) == 1) {
-            add_filter('get_the_author_meta', 'devops_wp_remove_author_email', 10, 2 ); // default WP
+            add_filter('get_the_author_user_email', 'devops_wp_remove_author_email', 10, 2 ); // default WP - user_email
             add_filter('generateblocks_dynamic_content_output', 'devops_remove_generateblocks_email_content_output', 10, 3 ); // GenerateBlocks Content Type output
             add_filter('generateblocks_dynamic_url_output', 'devops_remove_generateblocks_email_url_output', 10, 3 ); // GenerateBlocks Link Type output
         }
         
         // remove author names
         if (($options['users_security']['remove_author_names'] ?? 0) == 1) {
-            add_filter('the_author', '__return_empty_string'); // default WP
+            add_filter('the_author', '__return_empty_string'); // Default WP - author
+            add_filter('get_the_author_user_login', 'devops_wp_remove_user_login', 10, 2); // Default WP - user_login
+            add_filter('get_the_author_display_name', 'devops_wp_remove_display_name', 10, 2); // Default WP - display_name
+            add_filter('get_the_author_nickname', 'devops_wp_remove_nickname', 10, 2); // Default WP - nickname
+            add_filter('get_the_author_user_nicename', 'devops_wp_remove_user_nicename', 10, 2); // Default WP - user_nicename
             add_action('init', 'devops_unregister_core_block_post_author', 25); // Gutenberg core block
             add_filter('generate_post_author_output', '__return_empty_string'); // GeneratePress
             add_filter('generateblocks_dynamic_content_output', 'devops_remove_generateblocks_name_content_output', 10, 3 ); // GenerateBlocks Content Type output
@@ -168,11 +176,8 @@ function devops_remove_generateblocks_author_link( $url, $attributes, $block ) {
  * ***/
 
 // Default WP
-function devops_wp_remove_author_email( $value, $field ) {
-    if ( $field === 'user_email' ) {
-        return ''; // return empty
-    }
-    return $value;
+function devops_wp_remove_author_email($user_email, $user_id) {
+    return ''; // return empty
 }
 
 // GenerateBlocks - Content Type
@@ -203,6 +208,22 @@ function devops_remove_generateblocks_email_url_output($url, $attributes, $block
  * 
  * ***/
 
+// Default WP - user_login
+function devops_wp_remove_user_login($user_login,  $user_id) {
+    return ''; // return empty
+}
+// Default WP - display_name
+function devops_wp_remove_display_name($display_name,  $user_id) {
+    return ''; // return empty
+}
+// Default WP - nickname
+function devops_wp_remove_nickname($nickname,  $user_id) {
+    return ''; // return empty
+}
+// Default WP - user_nicename
+function devops_wp_remove_user_nicename($user_nicename,  $user_id) {
+    return ''; // return empty
+}
 
 // Gutenberg Core Block
 function devops_unregister_core_block_post_author() {
