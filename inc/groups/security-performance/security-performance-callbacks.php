@@ -11,7 +11,7 @@ function disable_xmlrpc_callback() {
     echo '</label>';
 }
 
-
+// Remove WP Head Links
 function remove_wp_head_links_callback() {
     $options = devops_security_performance_options(); // get options
 
@@ -113,7 +113,7 @@ function users_security_callback() {
     $remove_emails = $options['users_security']['remove_author_emails'] ?? '';
     $remove_names = $options['users_security']['remove_author_names'] ?? '';
 
-    // Główna opcja: Enable
+    // Enable
     echo '<label>';
         echo '<input type="checkbox" id="users-security" name="dev_options_security_performance[users_security][enabled]" value="1" ' . checked(1, $enabled, false) . ' data-toggle="users-security-options"> Enable';
     echo '</label>';
@@ -164,6 +164,63 @@ function users_security_callback() {
             echo '</label>';
 
         echo '</fieldset>'; // custom options end
+    echo '</fieldset>';
+}
+
+function devops_enqueue_tom_select() {
+    wp_enqueue_script('tom-select-js', 'https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.complete.min.js', array( 'jquery' ), '2.4.1', true);
+    wp_enqueue_style('tom-select-css', 'https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/css/tom-select.min.css', array(), '2.4.1');
+}
+
+add_action('admin_enqueue_scripts', 'devops_enqueue_tom_select');
+
+// Restrict Dashboard Access
+function restrict_dashboard_callback() {
+    $options = devops_security_performance_options(); // get options
+
+    $enabled = $options['restrict_dashboard']['enabled'] ?? ''; // default disabled
+    $config = $options['restrict_dashboard']['config'] ?? 'admin'; // default value to "admin" if not set
+    $roles = $options['restrict_dashboard']['roles'] ?? []; // default empty array
+
+    // get roles
+    $user_roles = get_editable_roles();
+    unset($user_roles['administrator']); // remove admin from list
+    
+    $role_options = array();
+    foreach ($user_roles as $role => $role_details) {
+        $selected = is_array($roles) && in_array($role, $roles) ? 'selected' : ''; // Use $roles to check if the role is selected
+        $role_options[$role] = '<option value="' . esc_attr($role) . '" ' . $selected . '>' . translate_user_role($role_details['name']) . '</option>';
+    }
+    
+    // enable
+    echo '<label>';
+        echo '<input type="checkbox" id="disable-dashboard" name="dev_options_security_performance[restrict_dashboard][enabled]" value="1" ' . checked(1, $enabled, false) . ' data-toggle="disable-dashboard-options"> Enable';
+    echo '</label>';
+
+    echo '<fieldset id="disable-dashboard-options" class="additional-options">';
+        // radio - administrator + hide more
+        echo '<label>';
+            echo '<input type="radio" id="disable-dashboard-admin" class="hide-more" name="dev_options_security_performance[restrict_dashboard][config]" value="admin" ' . checked('admin', $config, false) . '> Allow Administrators Only';
+        echo '</label>';
+    
+        // radio - selected options + show more
+        echo '<label>';
+            echo '<input type="radio" id="disable-dashboard-selected-roles" class="show-more" name="dev_options_security_performance[restrict_dashboard][config]" value="selected" ' . checked('selected', $config, false) . '> Restrict Selected Roles';
+        echo '</label>';
+    
+
+        // show more
+        echo '<div class="more-field" style="display: none">';
+    
+        // select roles
+        echo '<select class="tom-select" id="disable-dashboard-roles" name="dev_options_security_performance[restrict_dashboard][roles][]" multiple>';
+            foreach ($role_options as $select_option) {
+                echo $select_option; // write roles from array
+            }
+        echo '</select>';
+    
+        echo '</div>'; // show more end
+    
     echo '</fieldset>';
 }
 

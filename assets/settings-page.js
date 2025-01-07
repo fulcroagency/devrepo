@@ -107,4 +107,44 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+    
+    /**
+     * Show more field if specific option is selected
+     */
+    const showMoreClass = document.querySelector('.show-more');
+    const moreFieldClass = document.querySelector('.more-field');
+    const hideMoreClass = document.querySelector('.hide-more');
+
+    // Funkcja do aktualizacji widoczności elementu .more-field
+    function updateMoreFieldVisibility() {
+        if (showMoreClass.checked) {
+            moreFieldClass.style.display = '';
+        } else if (hideMoreClass.checked) {
+            moreFieldClass.style.display = 'none';
+        }
+    }
+
+    // Dodaj listenery dla zmiany stanu radio buttons
+    showMoreClass.addEventListener('change', updateMoreFieldVisibility);
+    hideMoreClass.addEventListener('change', updateMoreFieldVisibility);
+
+    // Wywołaj funkcję na start, aby ustawić początkowy stan widoczności
+    updateMoreFieldVisibility();
+    
+    /**
+     * Tom Select config
+     */
+    
+    new TomSelect(".tom-select", {
+        create: false,
+        sortField: {
+            field: "text",
+            direction: "asc"
+        },
+        plugins: ["remove_button"],
+        dropdownParent: "body",
+        placeholder: "Select roles",
+        allowEmptyOption: true
+    });
+
 });

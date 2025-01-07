@@ -66,6 +66,15 @@ add_action('admin_init', function () {
         'security_performance_settings' // field section ID
     );
     
+    // Disable Dasboard
+    add_settings_field(
+        'restrict_dashboard', // field ID
+        'Restrict Dashboard Access', // field label
+        'restrict_dashboard_callback', // callback to render field
+        'dev_options_security_performance', // page where field will be displayed
+        'security_performance_settings' // field section ID
+    );
+    
     // Disable Emojis
     add_settings_field(
         'disable_emojis', // field ID

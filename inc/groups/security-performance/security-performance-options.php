@@ -28,6 +28,11 @@ add_action('init', function () {
     if (($options['users_security']['enabled'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'security-performance/users-security.php';
     }
+    
+    // Users security
+    if (($options['restrict_dashboard']['enabled'] ?? 0) == 1) {
+        require_once DEV_OPTIONS_FUNC . 'security-performance/restrict-dashboard-access.php';
+    }
 
     // Disable Emojis
     if (($options['disable_emojis'] ?? 0) == 1) {
