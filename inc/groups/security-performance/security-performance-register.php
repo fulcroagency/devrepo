@@ -21,6 +21,15 @@ add_action('admin_init', function () {
     
     /* Settings Fields */
     
+    // Encode Emails
+    add_settings_field(
+        'email_encoder', // field ID
+        'Encode Emails', // field label
+        'email_encoder_callback', // callback to render field
+        'dev_options_security_performance', // page where field will be displayed
+        'security_performance_settings' // field section ID
+    );
+    
     // Disable XML-RPC
     add_settings_field(
         'disable_xmlrpc', // field ID

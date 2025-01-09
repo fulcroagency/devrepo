@@ -1,44 +1,57 @@
-<?
-if ( ! defined( 'ABSPATH' ) ) exit;
+<?php
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
 
 // Define default filter priority
-if ( ! defined( 'EE_FILTER_PRIORITY' ) ) {
-	define( 'EE_FILTER_PRIORITY', 1000 );
+if ( ! defined( 'DEE_FILTER_PRIORITY' ) ) {
+	define( 'DEE_FILTER_PRIORITY', 1000 );
 }
 
 // Register filters to encode email addresses in various content areas
 foreach ( array( 'the_content', 'the_excerpt', 'widget_text', 'comment_text', 'comment_excerpt' ) as $filter ) {
-	add_filter( $filter, 'ee_encode_emails', EE_FILTER_PRIORITY );
+	add_filter( $filter, 'devops_ee_encode_emails', DEE_FILTER_PRIORITY );
 }
 
-// Register the [encode] shortcode
-add_action( 'init', 'ee_register_shortcode', 1000 );
+// Check if shortcocde option is enabled
+function devops_ee_shortcode_is_enabled() {
+    $options = devops_security_performance_options(); // get options
+    return ($options['email_encoder']['shortcode'] ?? 0) == 1; // default to 0
+} 
+// if enabled add action
+if (devops_ee_shortcode_is_enabled()) {
+	// Register the [encode] shortcode
+	add_action( 'init', 'devops_ee_register_shortcode', 1000 );
+}
 
-function ee_register_shortcode() {
+
+/*** Functions ***/
+
+// Register the [encode] shortcode
+function devops_ee_register_shortcode() {
 	if ( ! shortcode_exists( 'encode' ) ) {
-		add_shortcode( 'encode', 'ee_shortcode' );
+		add_shortcode( 'encode', 'devops_ee_shortcode' );
 	}
 }
 
 // Shortcode callback to encode text
-function ee_shortcode( $attributes, $content = '' ) {
-    return ee_encode_str( $content );
+function devops_ee_shortcode( $attributes, $content = '' ) {
+    return devops_ee_encode_str( $content );
 }
 
 // Encode email addresses in a given string
-function ee_encode_emails( $string ) {
+function devops_ee_encode_emails( $string ) {
 
 	if ( ! is_string( $string ) ) {
 		return $string; // Skip if not a string
 	}
 
-	if ( apply_filters( 'ee_at_sign_check', true ) && strpos( $string, '@' ) === false ) {
+	if ( apply_filters( 'devops_ee_at_sign_check', true ) && strpos( $string, '@' ) === false ) {
 		return $string; // Skip if no @ sign is found
 	}
 
-	$method = apply_filters( 'ee_method', 'ee_encode_str' );
+	$method = apply_filters( 'devops_ee_method', 'devops_ee_encode_str' );
 	$regexp = apply_filters(
-		'ee_regexp',
+		'devops_ee_regexp',
 		'{
 			(?:mailto:)?
 			(?:
@@ -61,7 +74,7 @@ function ee_encode_emails( $string ) {
 }
 
 // Encode string by converting characters to HTML entities
-function ee_encode_str( $string ) {
+function devops_ee_encode_str( $string ) {
 
 	$chars = str_split( $string );
 	$seed = mt_rand( 0, (int) abs( crc32( $string ) / strlen( $string ) ) );

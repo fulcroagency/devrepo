@@ -2,6 +2,28 @@
 // Exit if accessed directly
 if (!defined('ABSPATH')) exit;
 
+// Email Encoder
+function email_encoder_callback() {
+    // get options
+    $options = devops_security_performance_options();
+    $enabled = $options['email_encoder']['enabled'] ?? ''; // default disable
+    $shortcode = $options['email_encoder']['shortcode'] ?? ''; // default disable
+
+    // Checkbox dla włączenia kodowania emaili
+    echo '<label>';
+        echo '<input type="checkbox" id="email-encoder" name="dev_options_security_performance[email_encoder][enabled]" value="1" ' . checked(1, $enabled, false) . ' data-toggle="email-encoder-options"> Enable';
+    echo '</label><br>';
+
+    // Checkbox dla włączenia shortcode
+    echo '<div id="email-encoder-options" class="additional-options not-child">';
+        echo '<label>';
+            echo '<input type="checkbox" id="email-encoder-shortcode" name="dev_options_security_performance[email_encoder][shortcode]" value="1" ' . checked(1, $shortcode, false) . '> Add Shortcode - [encode]';
+        echo '</label>';
+    echo '</div>';
+}
+
+
+// Disable XML-RPC
 function disable_xmlrpc_callback() {
     $options = devops_security_performance_options(); // get options 
     $value = $options['disable_xmlrpc'] ?? ''; // default to empty if not set

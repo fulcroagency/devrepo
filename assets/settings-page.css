@@ -22,6 +22,10 @@
     row-gap: 3px;
 }
 
+.additional-options.not-child {
+    margin-left: 0;
+}
+
 .flex-row {
     display: flex;
     column-gap: 20px;

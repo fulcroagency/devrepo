@@ -9,6 +9,11 @@ add_action('init', function () {
         return;
     }
     
+    // Remove WP Head Links
+    if (($options['email_encoder']['enabled'] ?? 0) == 1) {
+        require_once DEV_OPTIONS_FUNC . 'security-performance/email-encoder.php';
+    }
+    
     // Disable XML-RPC
     if (($options['disable_xmlrpc'] ?? 0) == 1) {
         require_once DEV_OPTIONS_FUNC . 'security-performance/disable-xmlrpc.php';
