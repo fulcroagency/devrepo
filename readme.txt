@@ -12,7 +12,7 @@ Requires PHP: 7.4+
 
 == Description ==
 
-Dev Options is a powerful WordPress plugin that helps you manage and optimize various aspects of your website. It is designed to work with a variety of features, divided into five main sections for better organization:
+Dev Options WordPress plugin that helps you manage and optimize various aspects of your website. It is designed to work with a variety of features, divided into five main sections for better organization:
 
 - General
 - Security/Performance
